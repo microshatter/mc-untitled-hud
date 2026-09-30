@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "untitled_hud",
+  "version": "${version}",
+  "name": "Untitled HUD",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/untitled_hud/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "io.github.microshatter.untitled_hud.client.Untitled_hudDataGenerator"
+    ],
+    "client": [
+      "io.github.microshatter.untitled_hud.client.Untitled_hudClient"
+    ],
+    "main": [
+      "io.github.microshatter.untitled_hud.Untitled_hud"
+    ]
+  },
+  "mixins": [
+    "untitled_hud.mixins.json",
+    {
+      "config": "untitled_hud.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
