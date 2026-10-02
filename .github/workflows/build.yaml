@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: self
+    runs-on: ubuntu-latest
     name: "Build Source"
     steps:
       - name: "Checkout"
