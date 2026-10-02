@@ -11,8 +11,9 @@ public class RenderOverlay implements HudElement {
     private Minecraft mc;
     public static final Identifier UNTITLED_GUI = Identifier.fromNamespaceAndPath("untitled_hud", "untitled_hud");
 
-    private int main_color = 0xffe0fdd3;
-    private int danger_color = 0xfffe8f71;
+    private int main_color = 0xffa6e3a1;
+    private int danger_color = 0xfff38ba8;
+    private int damaged_color = 0xffeba0ac;
 
     private float maxHealth;
     private float health;
