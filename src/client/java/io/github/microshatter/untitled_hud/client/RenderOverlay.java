@@ -80,7 +80,9 @@ public class RenderOverlay implements HudElement {
                 lastChangeWasDamage = true;
             } else if (health > lastHealth) {
                 lastChangeWasDamage = false;
-                ghostRegenerateDelaySeconds = 1;
+                if (health > ghostHealth) {
+                    ghostRegenerateDelaySeconds = 1;
+                }
             }
 
             lastHealth = health;
