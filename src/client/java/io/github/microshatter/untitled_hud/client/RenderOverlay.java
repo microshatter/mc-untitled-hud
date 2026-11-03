@@ -3,8 +3,11 @@ package io.github.microshatter.untitled_hud.client;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.resources.Identifier;
 import net.minecraft.client.Minecraft;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Util;
 import org.jspecify.annotations.NonNull;
 
@@ -31,6 +34,7 @@ public class RenderOverlay implements HudElement {
     String playerName;
 
     private float lastHealth;
+    private float lastAbsorptionHealth;
     private float ghostHealth;
     private boolean lastChangeWasDamage;
 
@@ -43,6 +47,10 @@ public class RenderOverlay implements HudElement {
     // Time related
     private double lastTimeSeconds;
     private double ghostRegenerateDelaySeconds;
+
+    private void playSound(SoundEvent event) {
+        mc.getSoundManager().play(SimpleSoundInstance.forUI(event, 1.0f));
+    }
 
     public RenderOverlay() {
         this.mc = Minecraft.getInstance();
@@ -73,6 +81,17 @@ public class RenderOverlay implements HudElement {
         absorptionWidth = healthBarWidth * absorptionPercentage;
         healthPercentage = health / maxHealth;
         healthWidth = healthBarWidth * healthPercentage;
+
+        if (absorptionAmount != lastAbsorptionHealth) {
+            if (absorptionAmount < lastAbsorptionHealth) {
+                if (absorptionAmount <= 0) {
+                    playSound(SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR);
+                } else {
+                    playSound(SoundEvents.ZOMBIE_ATTACK_IRON_DOOR);
+                }
+            }
+            lastAbsorptionHealth = absorptionAmount;
+        }
 
         // Ghost Health related calculation
         if (health != lastHealth) {
